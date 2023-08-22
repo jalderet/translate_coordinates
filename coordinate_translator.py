@@ -70,12 +70,21 @@ class TileMapTranslator:
 
         return area_number, relative_y
  
-    def euler_from_quaternion(self, x, y, z, w):
+    def degrees_from_quaternion(self, x, y, z, w):
             """
-            Convert a quaternion into euler angles (roll, pitch, yaw)
-            roll is rotation around x in radians (counterclockwise)
-            pitch is rotation around y in radians (counterclockwise)
-            yaw is rotation around z in radians (counterclockwise)
+            This function takes in a quaternion data from optitrack and 
+            returns the angles in degrees (counterclockwise)
+
+            Arguments: 
+            x - the quaternion x as given by optitrack 
+            y - the quaternion z as given by optitrack
+            z - the quaternion y as given by optitrack
+            w - the quaternion w as given by optitrack
+
+            Returns:
+            roll_x - angle around x-axis
+            pitch_y - angle around y-axis
+            yaw_z - angle around z-axis (most useful angle)
             """
             import math 
 
@@ -96,7 +105,7 @@ class TileMapTranslator:
             pitch_y = math.degrees(pitch_y)
             yaw_z = math.degrees(yaw_z)
         
-            return roll_x, pitch_y, yaw_z # in radians
+            return roll_x, pitch_y, yaw_z # in degrees
 
 
 # Example usage
@@ -113,14 +122,14 @@ if __name__ == "__main__":
     opti_x = -1.665  #actual optitrack reading
     opti_y = 0.044
 
-    x = -0.00652
-    y = -0.00128 # z in optitrack
-    z = -0.031006 # y in optitrack
-    w = 0.9995
+    x = 0.00239  # x in optitrack
+    y = -0.00805 # z in optitrack
+    z = -.7026 # y in optitrack
+    w = 1
 
 
     area_number, relative_y = translator.translate_coordinate(opti_x, opti_y)
-    x_angle , y_angle, z_angle = translator.euler_from_quaternion(x, y, z, w)
+    x_angle , y_angle, z_angle = translator.degrees_from_quaternion(x, y, z, w)
 
     print(f"Input Coordinate: ({opti_x}, {opti_y})")
     print(f"Relative y: ({str(relative_y)})")
