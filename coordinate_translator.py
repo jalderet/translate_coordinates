@@ -21,7 +21,7 @@ class TileMapTranslator:
         returns what section of a lane the coordinate is in.
 
         Arguments: 
-        opti_x - the x oordinate as given by optitrack 
+        opti_x - the x coordinate as given by optitrack 
         opti_y - the z coordinate as given by optitrack
 
         Returns:
